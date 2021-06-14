@@ -1,39 +1,26 @@
 "use strict";
 
-fetch("./data.json")
-  .then((response) => {
-    console.log(response);
+console.log("start"); //1
 
-    const jsonPromise = response.json();
-    return jsonPromise;
-  })
-  .then((jsonData) => {
-    console.table(jsonData);
+setTimeout(() => {
+  console.log("timer");//7
+}, 0);
 
-    const stringData = JSON.stringify(jsonData, null, 4);
-    document.body.append(stringData);
-  })
-  .catch((error) => {
-    console.log("Error");
-    if (error instanceof TypeError) {
-      console.log(10);
-    }
+const p1 = new Promise((resolve, reject) => {
+  console.log("create prom"); //2
+  resolve();
+  reject();
+  console.log("prom created"); //3
+});
 
-    if (error instanceof SyntaxError) {
-      console.log(1);
-    }
-
-    document.body.append("Error happened");
+p1.then(() => {
+  console.log("prom cb body"); //5
+})
+  .catch(() => {
+    console.log("catch body");//5 если ошибка
   })
   .finally(() => {
-    document.getElementById("load").remove();
+    console.log("fin");//6
   });
 
-  class UserError extends Error {// совои ошибки кастомные
-    constructor(str) {
-      super(str);
-      this.userType = 'user';
-      this.name = 'User Error'
-      Error.captureStackTrace(this, UserError);
-    }
-  }
+console.log("end"); //4
