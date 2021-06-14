@@ -15,6 +15,13 @@ fetch("./data.json")
   })
   .catch((error) => {
     console.log("Error");
+    if(error instanceof TypeError){
+      console.log(10);
+    }
+
+    if(error instanceof SyntaxError){
+      console.log(1);
+    }
    
     document.body.append("Error happened");
   })
